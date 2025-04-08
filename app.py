@@ -50,7 +50,7 @@ def annotate_pdf(pdf_bytes):
                 highlight.set_colors(stroke=color)
                 highlight.set_info(
                     title="AI Clause Classification",
-                    content=f"🔍 {label.upper()} ({confidence:.2f})"
+                    content=f"{label.upper()} ({confidence:.2f})"
                 )
                 highlight.update()
 
@@ -58,23 +58,23 @@ def annotate_pdf(pdf_bytes):
         return output_bytes, clause_predictions
 
 # Streamlit UI
-st.title("📑 AI-Powered Contract Clause Annotator")
+st.title("AI-Powered Contract Clause Annotator")
 
 uploaded_file = st.file_uploader("Upload your contract (PDF)", type="pdf")
 
 if uploaded_file:
-    st.info("📚 Reading and analyzing clauses...")
+    st.info("Reading and analyzing clauses...")
     annotated_pdf, clause_data = annotate_pdf(uploaded_file.read())
-    st.success("✅ PDF annotated successfully!")
+    st.success("PDF annotated successfully!")
 
     # Show table of predictions
-    st.subheader("📋 Clause Predictions")
+    st.subheader("Clause Predictions")
     df = pd.DataFrame(clause_data)
     st.dataframe(df, use_container_width=True)
 
     # Download CSV
     st.download_button(
-        label="📥 Download Predictions CSV",
+        label="Download Predictions CSV",
         data=df.to_csv(index=False).encode(),
         file_name="clause_predictions.csv",
         mime="text/csv"
@@ -82,7 +82,7 @@ if uploaded_file:
 
     # Download PDF
     st.download_button(
-        label="📥 Download Highlighted PDF",
+        label="Download Highlighted PDF",
         data=annotated_pdf,
         file_name="annotated_contract.pdf",
         mime="application/pdf"
