@@ -7,17 +7,17 @@ An AI-powered Natural Language Processing (NLP) tool to automatically analyze le
 
 ## Features
 
-- 📄 Upload and annotate legal contracts in PDF format.
-- 🤖 Automatically classify clauses into legal categories:
+-  Upload and annotate legal contracts in PDF format.
+-  Automatically classify clauses into legal categories:
   - Termination
   - Confidentiality
   - Dispute Resolution
   - Jurisdiction
-- ✍️ Highlights clauses in the original PDF using PyMuPDF.
-- 🌐 Streamlit UI for a smooth and intuitive user experience.
-- 🧾 Download the annotated PDF.
-- 📋 Displays top 3 predicted clause types per block (optional).
-- 📂 Lists all extracted clauses and their predicted labels.
+-  Highlights clauses in the original PDF using PyMuPDF.
+-  Streamlit UI for a smooth and intuitive user experience.
+-  Download the annotated PDF.
+-  Displays top 3 predicted clause types per block (optional).
+-  Lists all extracted clauses and their predicted labels.
 
 ---
 
@@ -34,7 +34,7 @@ cd Legal-Contract-Review-System
 ### 2. Download the CUAD Dataset
 To fine-tune or retrain the model, download the CUAD dataset from the official repo:
 
-🔗 [CUAD Dataset GitHub](https://github.com/TheAtticusProject/cuad)
+ [CUAD Dataset GitHub](https://github.com/TheAtticusProject/cuad)
 
 Place the dataset (cuad.json, etc.) in a data/ directory.
 
@@ -69,7 +69,7 @@ To run the app:
 ---
 
 
-### 📊 Model Training Info
+###  Model Training Info
 
 - Fine-tuned bert-base-uncased on CUAD clause labels.
 - Used HuggingFace Trainer.
