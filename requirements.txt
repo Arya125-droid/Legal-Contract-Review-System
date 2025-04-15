@@ -4,3 +4,5 @@ torch
 PyMuPDF
 scikit-learn
 pandas
+fastapi
+uvicorn

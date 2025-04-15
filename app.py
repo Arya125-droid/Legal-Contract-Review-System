@@ -4,8 +4,9 @@ import os
 from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
 import tempfile
 import pandas as pd
+import requests
 
-# Load model and tokenizer once
+# Load model and tokenizer once for local processing (Streamlit's direct processing)
 @st.cache_resource
 def load_model():
     model = AutoModelForSequenceClassification.from_pretrained("./legal-bert-cuad")
@@ -21,6 +22,7 @@ label_colors = {
     "jurisdiction": (0.9, 0.9, 1)
 }
 
+# Function for local PDF annotation (using Streamlit backend directly)
 def annotate_pdf(pdf_bytes):
     clause_predictions = []
     with fitz.open(stream=pdf_bytes, filetype="pdf") as doc:
@@ -63,27 +65,48 @@ st.title("AI-Powered Contract Clause Annotator")
 uploaded_file = st.file_uploader("Upload your contract (PDF)", type="pdf")
 
 if uploaded_file:
-    st.info("Reading and analyzing clauses...")
-    annotated_pdf, clause_data = annotate_pdf(uploaded_file.read())
-    st.success("PDF annotated successfully!")
+    # Option to use local processing (Streamlit-only) or external API
+    use_fastapi = st.radio("Choose how to process the file:", ("Local Processing", "FastAPI Backend"))
 
-    # Show table of predictions
-    st.subheader("Clause Predictions")
-    df = pd.DataFrame(clause_data)
-    st.dataframe(df, use_container_width=True)
+    if use_fastapi == "Local Processing":
+        st.info("Reading and analyzing clauses...")
+        annotated_pdf, clause_data = annotate_pdf(uploaded_file.read())
+        st.success("PDF annotated successfully!")
 
-    # Download CSV
-    st.download_button(
-        label="Download Predictions CSV",
-        data=df.to_csv(index=False).encode(),
-        file_name="clause_predictions.csv",
-        mime="text/csv"
-    )
+        # Show table of predictions
+        st.subheader("Clause Predictions")
+        df = pd.DataFrame(clause_data)
+        st.dataframe(df, use_container_width=True)
 
-    # Download PDF
-    st.download_button(
-        label="Download Highlighted PDF",
-        data=annotated_pdf,
-        file_name="annotated_contract.pdf",
-        mime="application/pdf"
-    )
+        # Download CSV
+        st.download_button(
+            label="Download Predictions CSV",
+            data=df.to_csv(index=False).encode(),
+            file_name="clause_predictions.csv",
+            mime="text/csv"
+        )
+
+        # Download PDF
+        st.download_button(
+            label="Download Highlighted PDF",
+            data=annotated_pdf,
+            file_name="annotated_contract.pdf",
+            mime="application/pdf"
+        )
+
+    elif use_fastapi == "FastAPI Backend":
+        with st.spinner("Sending file to FastAPI backend for annotation..."):
+            # Send the file to the FastAPI backend
+            files = {"file": uploaded_file.getvalue()}
+            response = requests.post("http://127.0.0.1:8000/annotate", files={"file": ("contract.pdf", uploaded_file.getvalue(), "application/pdf")})
+
+            if response.status_code == 200:
+                st.success("Annotation complete!")
+                st.download_button(
+                    label="📥 Download Annotated PDF",
+                    data=response.content,
+                    file_name="annotated_contract.pdf",
+                    mime="application/pdf"
+                )
+            else:
+                st.error("Annotation failed. Please try again.")
