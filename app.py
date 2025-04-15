@@ -9,7 +9,9 @@ import requests
 # Load model and tokenizer once for local processing (Streamlit's direct processing)
 @st.cache_resource
 def load_model():
-    model = AutoModelForSequenceClassification.from_pretrained("./legal-bert-cuad")
+    model = AutoModelForSequenceClassification.from_pretrained(
+                "./legal-bert-cuad", use_safetensors=False
+            )
     tokenizer = AutoTokenizer.from_pretrained("./legal-bert-cuad")
     return pipeline("text-classification", model=model, tokenizer=tokenizer, top_k=3)
 
