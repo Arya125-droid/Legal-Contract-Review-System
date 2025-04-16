@@ -9,7 +9,9 @@ import requests
 # Load model and tokenizer once for local processing (Streamlit's direct processing)
 @st.cache_resource
 def load_model():
-    model = AutoModelForSequenceClassification.from_pretrained("./legal-bert-cuad")
+    model = AutoModelForSequenceClassification.from_pretrained(
+                "./legal-bert-cuad", use_safetensors=False
+            )
     tokenizer = AutoTokenizer.from_pretrained("./legal-bert-cuad")
     return pipeline("text-classification", model=model, tokenizer=tokenizer, top_k=3)
 
@@ -98,7 +100,7 @@ if uploaded_file:
         with st.spinner("Sending file to FastAPI backend for annotation..."):
             # Send the file to the FastAPI backend
             files = {"file": uploaded_file.getvalue()}
-            response = requests.post("http://127.0.0.1:8000/annotate", files={"file": ("contract.pdf", uploaded_file.getvalue(), "application/pdf")})
+            response = requests.post("http://localhost:8000/annotate", files={"file": ("contract.pdf", uploaded_file.getvalue(), "application/pdf")})
 
             if response.status_code == 200:
                 st.success("Annotation complete!")

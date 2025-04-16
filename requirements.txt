@@ -1,8 +1,9 @@
+fastapi
+uvicorn
 streamlit
 transformers
 torch
-PyMuPDF
-scikit-learn
+python-multipart
+pymupdf
 pandas
-fastapi
-uvicorn
+requests
