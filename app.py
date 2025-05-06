@@ -13,13 +13,12 @@ from io import BytesIO
 # Page configuration
 st.set_page_config(
     page_title="Contract Clause Analyzer",
-    page_icon="📄",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # App title and description
-st.title("📄 AI-Powered Contract Clause Analyzer")
+st.title("AI-Powered Contract Clause Analyzer")
 st.markdown("Analyze and highlight important clauses in your legal contracts")
 
 # Load model and tokenizer with cache
@@ -290,7 +289,7 @@ if uploaded_file:
 
 else:
     # Show example when no file is uploaded
-    st.info("👆 Please upload a contract document to begin the analysis")
+    st.info("Please upload a contract document to begin the analysis")
     
     # Sample results preview
     with st.expander("See example results"):
