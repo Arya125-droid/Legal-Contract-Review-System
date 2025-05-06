@@ -1,4 +1,5 @@
-import fitz  # PyMuPDF
+# import fitz  # PyMuPDF
+import fitz
 
 def annotate_pdf(input_pdf_path, output_pdf_path, classifier, label_colors):
     doc = fitz.open(input_pdf_path)

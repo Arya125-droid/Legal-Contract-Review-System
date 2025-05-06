@@ -1,0 +1,39 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# macOS system files
+.DS_Store
+
+# Environment variables and virtual environments
+.env
+.venv/
+env/
+venv/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Temporary files
+*.tmp
+*.log
+*.out
+*.err
+temp/
+tmp/
+*.swp
+*.swo
+
+# Streamlit cache
+.streamlit/
+
+# Ignore safetensors if generated
+*.safetensors
+
+# Ignore any other large or unnecessary files
+*.csv
+*.xlsx
+*.pkl
+*.h5
+*.joblib
