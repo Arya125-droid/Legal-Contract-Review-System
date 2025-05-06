@@ -1,6 +1,8 @@
 import streamlit as st
 import fitz  # PyMuPDF
 import os
+import torch
+torch.classes.__path__ = [os.path.join(torch.__path__[0], torch.classes.__file__)]
 from docx import Document
 import tempfile
 from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
