@@ -9,10 +9,10 @@ An AI-powered Natural Language Processing (NLP) tool to automatically analyze le
 
 -  Upload and annotate legal contracts in PDF format.
 -  Automatically classify clauses into legal categories:
-  - Termination
-  - Confidentiality
-  - Dispute Resolution
-  - Jurisdiction
+    * Termination
+    * Confidentiality
+    * Dispute Resolution
+    * Jurisdiction
 -  Highlights clauses in the original PDF using PyMuPDF.
 -  Streamlit UI for a smooth and intuitive user experience.
 -  Download the annotated PDF.
